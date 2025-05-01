@@ -1,0 +1,657 @@
+/* --- Reset universal --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* --- Paleta de colores --- */
+:root {
+  --primary-black: #000000;
+  --primary-white: #ffffff;
+  --primary-gray: #f4f4f4;
+  --secondary-gray: #e0e0e0;
+  --accent-red: #E10600;
+  --accent-green: rgb(147, 218, 147);
+}
+
+/* --- General --- */
+body {
+  font-family: 'Poppins', 'Arial', sans-serif;
+  background-color: var(--primary-gray);
+  color: var(--primary-black);
+  line-height: 1.6;
+}
+
+/* --- Encabezado --- */
+#header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 200px;
+  background-color: var(--primary-black);
+  z-index: 100;
+  transition: all 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#header.shrink {
+  height: 100px;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 40px;
+}
+
+/* --- Logo --- */
+.logo-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+}
+
+#header.shrink .logo-container {
+  justify-content: flex-start;
+  width: auto;
+}
+
+.logo {
+  max-height: 120px;
+  padding: 10px 0;
+  object-fit: contain;
+  transition: all 0.4s ease;
+}
+
+#header.shrink .logo {
+  max-height: 60px;
+  padding: 5px 0;
+}
+
+/* --- Navbar --- */
+.navbar {
+  width: 100%;
+  background-color: var(--primary-black);
+  transition: all 0.4s ease;
+}
+
+#header.shrink .navbar {
+  width: 90%;
+  background-color: transparent;
+  margin-left: auto;
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+}
+
+#header.shrink .navbar ul {
+  justify-content: flex-end;
+}
+
+.navbar li {
+  position: relative;
+}
+
+.navbar a {
+  display: block;
+  padding: 15px;
+  color: var(--primary-white);
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  border-bottom: 2px solid var(--accent-green);
+  transition: all 0.3s ease;
+}
+
+.navbar a:hover {
+  color: var(--accent-red);
+  border-bottom: 2px solid var(--accent-red);
+}
+
+/* --- Dropdown --- */
+.navbar li.dropdown {
+  position: relative;
+}
+
+.dropdown > a::after {
+  content: " ▼";
+  font-size: 0.7em;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  background-color: var(--primary-black);
+  min-width: 220px;
+  top: 100%;
+  left: 0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+  border-radius: 4px;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 0.4s ease, max-height 0.4s ease;
+}
+
+.dropdown-menu.show {
+  display: block;
+  opacity: 1;
+  max-height: 500px;
+}
+
+.dropdown-menu li a {
+  padding: 12px 16px;
+  color: var(--primary-white);
+}
+
+.dropdown-menu li a:hover {
+  background-color: #111;
+  color: var(--accent-red);
+}
+
+/* --- Hover en Desktop --- */
+@media (min-width: 769px) {
+  .dropdown:hover .dropdown-menu {
+    display: flex;
+    flex-direction: column;
+    opacity: 1;
+    max-height: 500px;
+  }
+}
+
+/* --- Secciones Generales --- */
+section {
+  scroll-margin-top: 150px;
+  padding: 120px 20px;
+  background-color: var(--primary-gray);
+  text-align: center;
+}
+
+/* --- Texto Izquierda (secciones especiales) --- */
+section.texto-izquierda {
+  text-align: left;
+  max-width: 1000px;
+  margin: 100px auto;
+  background-color: var(--primary-white);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+
+/* --- Títulos --- */
+h1, h2, h3 {
+  font-weight: bold;
+  text-transform: uppercase;
+  position: relative;
+  margin-bottom: 30px;
+  text-align: center;
+  color: var(--primary-black);
+}
+
+h1::after, h2::after, h3::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background-color: var(--accent-green);
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+h4 {
+  font-size: 1.3rem;
+  text-align: left;
+}
+
+/* --- Formularios --- */
+form {
+  max-width: 600px;
+  margin: auto;
+  background: var(--primary-white);
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+input, textarea {
+  margin: 12px 0;
+  padding: 15px;
+  border: 1px solid var(--secondary-gray);
+  border-radius: 8px;
+  font-size: 1rem;
+  width: 100%;
+}
+
+button {
+  background-color: var(--primary-black);
+  color: var(--primary-white);
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: var(--accent-red);
+}
+
+/* --- Footer --- */
+footer {
+  background-color: var(--primary-black);
+  color: var(--primary-white);
+  text-align: center;
+  padding: 20px 0;
+  font-size: 0.9rem;
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+  .navbar ul {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .dropdown-menu {
+    position: static;
+    box-shadow: none;
+    width: 100%;
+  }
+
+  #header, #header.shrink {
+    height: auto;
+    flex-direction: column;
+    padding: 20px;
+  }
+}
+
+/* --- Inicio (Hero Section) --- */
+#inicio {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-color: var(--primary-black);
+  background-image: url('assets/images/varios_deportes3.png');
+  background-size: cover;
+  background-position: center center; /* Ajuste: centro total */
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--primary-white); /* Texto blanco */
+  padding: 0 20px;
+}
+
+.imagen-inicio {
+  width: 100%;
+  height: 50vh;
+  background-image: url('../assets/images/varios_deportes8.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+   margin: 50px auto 0 auto; /* Separación superior */
+}
+
+/* Texto del Hero sin fondo ni sombra */
+.hero-texto {
+  background: none; /* Sin fondo */
+  padding: 200px 10px; /* Algo de padding para separación */
+  border-radius: 0;
+  box-shadow: none;
+  max-width: 900px;
+  width: 90%;
+  margin: 400px auto 0 auto; /* Separación superior */
+  text-align: center;
+  position: static; /* <-- Importante: ya no relativo ni absoluto */
+  opacity: 1;
+  animation: none;
+  z-index: auto;
+}
+/* Estilos del título y párrafo */
+.hero-texto h1, .hero-texto p {
+  color: var(--primary-white); /* Ambos en blanco */
+}
+
+.hero-texto h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 0px;
+}
+
+.hero-texto p {
+  font-size: 1.5rem;
+}
+
+/* Línea verde debajo del título */
+/*.hero-texto hr {
+  width: 60px;
+  border: 2px solid var(--primary-green);
+  margin: 20px auto;
+}*/
+
+/* --- Animación Fade In --- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* --- Contacto --- */
+#contacto {
+  background-color: var(--primary-gray);
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.contacto-datos {
+  margin-top: 20px;
+  font-size: 1rem;
+  color: var(--primary-black);
+}
+
+.contacto-datos a {
+  color: var(--accent-blue);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.contacto-datos a:hover {
+  text-decoration: underline;
+}
+
+/* --- Equipo --- */
+.equipo {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 40px auto 0 auto;
+}
+
+
+.miembro {
+  background: var(--primary-white);
+  border: 1px solid var(--secondary-gray);
+  border-radius: 12px;
+  padding: 20px;
+  width: 250px;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.miembro:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 255, 0, 0.4);
+}
+
+.miembro img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.miembro h4 {
+  margin-top: 10px;
+  font-size: 1.2rem;
+}
+
+/* --- Proceso Detallado --- */
+.proceso-detallado {
+  background: var(--primary-white);
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+
+.proceso-detallado h2 {
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2rem;
+}
+
+.proceso-paso {
+  background-color: #f9f9f9;
+  border-left: 4px solid var(--accent-green);
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  border-radius: 0 5px 5px 0;
+}
+
+.proceso-paso h3 {
+  color: var(--accent-green);
+  margin-top: 0;
+}
+
+.proceso-paso ul {
+  padding-left: 20px;
+}
+
+.sub-lista {
+  list-style-type: circle;
+  padding-left: 25px;
+  margin-top: 8px;
+}
+
+.proceso-paso strong {
+  color: #2c3e50;
+}
+
+@media (max-width: 768px) {
+  .proceso-detallado {
+    padding: 15px;
+  }
+  
+  .proceso-paso {
+    padding: 12px 15px;
+  }
+}
+  /* --- Quiénes Somos --- */
+.quienes-somos {
+  max-width: 800px;
+  margin: 100px auto;
+  background-color: var(--primary-white);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  text-align: left;
+}
+/* Estilos para la sección de Atletas */
+.seccion-atletas {
+  padding: 4rem 0;
+  background-color: #f8f9fa;
+}
+
+.contenedor-ancho {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.titulo-seccion {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  color: #000000;
+  position: relative;
+}
+
+.titulo-seccion::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: #0fce48;
+  margin: 1rem auto;
+}
+
+.contenedor-atletas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+}
+
+.tarjeta-atleta {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease;
+}
+
+.tarjeta-atleta:hover {
+  transform: translateY(-5px);
+}
+
+.marco-foto {
+  height: 280px;
+  overflow: hidden;
+}
+
+.foto-atleta {
+  width: 50%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.tarjeta-atleta:hover .foto-atleta {
+  transform: scale(1.05);
+}
+
+.info-atleta {
+  padding: 1.5rem;
+}
+
+.info-atleta h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #2c3e50;
+}
+
+.deporte {
+  font-style: italic;
+  color: #7f8c8d;
+  margin-bottom: 1rem;
+}
+
+.logros {
+  margin-bottom: 1.5rem;
+  padding-left: 1.2rem;
+}
+
+.logros li {
+  margin-bottom: 0.5rem;
+  position: relative;
+}
+
+.logros li::before {
+  content: '•';
+  color: #e74c3c;
+  font-weight: bold;
+  position: absolute;
+  left: -1rem;
+}
+
+.destacado {
+  font-weight: 600;
+  color: #e74c3c;
+  margin-top: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .contenedor-atletas {
+    grid-template-columns: 1fr;
+  }
+  
+  .marco-foto {
+    height: 220px;
+  }
+}
+.seccion-simple {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: 'Arial', sans-serif;
+}
+
+.bloque-testimonio {
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #eee;
+}
+
+.texto-destacado {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #333;
+  font-style: italic;
+  quotes: "“" "”";
+}
+
+.texto-destacado:before {
+  content: open-quote;
+  font-size: 1.5em;
+  color: #1e40af;
+}
+
+.texto-destacado:after {
+  content: close-quote;
+}
+
+.firma-testimonio {
+  text-align: right;
+  font-weight: 600;
+  color: #555;
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+}
+html {
+  scroll-behavior: smooth;
+}
