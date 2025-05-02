@@ -1,27 +1,24 @@
-// Código JavaScript básico
 console.log("¡El sitio está funcionando!");
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     console.log("El DOM está completamente cargado");
 
-    // Dropdown para móviles y tablets
     const dropdownToggle = document.querySelector('.dropdown-toggle');
     const dropdownMenu = document.querySelector('.dropdown-menu');
 
     if (dropdownToggle && dropdownMenu) {
-        dropdownToggle.addEventListener('click', function(e) {
+        dropdownToggle.addEventListener('click', function (e) {
             e.preventDefault();
             dropdownMenu.classList.toggle('show');
         });
 
-        document.addEventListener('click', function(e) {
+        document.addEventListener('click', function (e) {
             if (!e.target.closest('.dropdown')) {
                 dropdownMenu.classList.remove('show');
             }
         });
     }
 
-    // Reducir el header al hacer scroll (mejorado)
     const header = document.getElementById('header');
     function checkHeaderShrink() {
         if (window.location.hash === "#inicio" || window.scrollY < 150) {
@@ -32,21 +29,25 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     window.addEventListener('scroll', checkHeaderShrink);
-    window.addEventListener('hashchange', checkHeaderShrink); // para cuando cambias de sección
-    checkHeaderShrink(); // para que aplique apenas carga
+    window.addEventListener('hashchange', checkHeaderShrink);
+    checkHeaderShrink();
 
-    // Enviar formulario de contacto
     const contactForm = document.getElementById('contact-form');
     if (contactForm) {
-        contactForm.addEventListener('submit', async function(event) {
+        contactForm.addEventListener('submit', async function (event) {
             event.preventDefault();
 
             const name = contactForm.name.value;
             const email = contactForm.email.value;
             const message = contactForm.message.value;
 
+            // Detectar entorno
+            const baseUrl = window.location.hostname.includes("localhost")
+                ? "http://localhost:3000"
+                : ""; // mismo dominio de producción
+
             try {
-                const response = await fetch('http://localhost:3000/send-email', {
+                const response = await fetch(`${baseUrl}/send-email`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

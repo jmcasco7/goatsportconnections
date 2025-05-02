@@ -1,9 +1,10 @@
 const express = require('express');
 const nodemailer = require('nodemailer');
 const cors = require('cors');
+const path = require('path');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // Middlewares
 app.use(cors());
@@ -17,21 +18,21 @@ app.post('/send-email', (req, res) => {
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: 'goatsportconnections@gmail.com', // tu correo
-            pass: 'contraseña-o-clave-de-app'        // no la real, sino la "clave de aplicación"
+            user: process.env.EMAIL_USER, // se define en Azure portal
+            pass: process.env.EMAIL_PASS  // clave de aplicación, también se define allí
         }
     });
 
     const mailOptions = {
         from: email,
-        to: 'goatsportconnections@gmail.com',
+        to: process.env.EMAIL_USER,
         subject: 'Nuevo mensaje de contacto',
         text: `Nombre: ${name}\nEmail: ${email}\nMensaje: ${message}`
     };
 
-    transporter.sendMail(mailOptions, function(error, info){
+    transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
-            console.log(error);
+            console.error('Error al enviar el correo:', error);
             res.status(500).send('Error al enviar el correo');
         } else {
             console.log('Email enviado: ' + info.response);
@@ -40,6 +41,14 @@ app.post('/send-email', (req, res) => {
     });
 });
 
+// En producción: servir archivos estáticos
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, 'public'))); // o 'dist' según tu estructura
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname, 'public', 'index.html')); // ajusta si usas otra carpeta
+    });
+}
+
 app.listen(PORT, () => {
-    console.log(`Servidor corriendo en http://localhost:${PORT}`);
+    console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
