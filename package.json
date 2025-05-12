@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "js/server.js",
   "scripts": {
-    "start": "node js/server.js"
+    "start": "node js/server.js",
+    "build": "echo 'No build step required'"
   },
   "keywords": [],
   "author": "",
